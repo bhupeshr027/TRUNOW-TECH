@@ -194,9 +194,18 @@ def init_db():
             db.execute(
                 "INSERT INTO admins (username, password_hash, created_at) VALUES (?, ?, ?)",
                 (
-                    "admin",
-                    generate_password_hash("admin123"),
+                    "TRUNOW ADMIN",
+                    generate_password_hash("Admin123@"),
                     datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                ),
+            )
+        else:
+            db.execute(
+                "UPDATE admins SET username = ?, password_hash = ? WHERE id = ?",
+                (
+                    "TRUNOW ADMIN",
+                    generate_password_hash("Admin123@"),
+                    admin["id"],
                 ),
             )
 

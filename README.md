@@ -35,15 +35,6 @@ trunow-portal/
 └── templates/
 ```
 
-## Default Credentials
-
-- Admin
-  - Username: `admin`
-  - Password: `admin123`
-- Employee
-  - Usernames are seeded from the employee list in `app.py`
-  - Each employee can log in with their username or generated phone number
-
 ## Setup Instructions
 
 ### Windows
