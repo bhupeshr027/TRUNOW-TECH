@@ -1,0 +1,79 @@
+{% extends "admin/layout.html" %}
+{% block title %}Attendance | TRUNOW{% endblock %}
+{% block admin_content %}
+<div class="soft-card p-3 mb-4">
+    <form method="get" class="row g-3 align-items-end">
+        <div class="col-md-3">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-control" name="date" value="{{ selected_date }}">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Employee</label>
+            <select class="form-select" name="employee">
+                <option value="">All employees</option>
+                {% for employee in employees %}
+                <option value="{{ employee.id }}" {% if selected_employee == employee.id|string %}selected{% endif %}>{{ employee.full_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Department</label>
+            <select class="form-select" name="department">
+                <option value="">All departments</option>
+                {% for department in departments %}
+                <option value="{{ department.department }}" {% if selected_department == department.department %}selected{% endif %}>{{ department.department }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3 d-flex gap-2">
+            <button class="btn btn-primary flex-grow-1">Filter</button>
+            <button class="btn btn-outline-primary" name="export" value="csv">Export CSV</button>
+        </div>
+    </form>
+</div>
+
+<div class="table-card">
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Date</th>
+                    <th>Clock In</th>
+                    <th>Clock Out</th>
+                    <th>Location</th>
+                    <th>Photo</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in attendance_rows %}
+                <tr>
+                    <td>
+                        <div class="fw-semibold">{{ row.full_name }}</div>
+                        <div class="mini-muted">{{ row.emp_code }} | {{ row.department }}</div>
+                    </td>
+                    <td>{{ row.date }}</td>
+                    <td>{{ row.clock_in_time or '-' }}</td>
+                    <td>{{ row.clock_out_time or '-' }}</td>
+                    <td>
+                        <div>{{ row.location_text or '-' }}</div>
+                        <div class="mini-muted">{{ row.latitude or '-' }}, {{ row.longitude or '-' }}</div>
+                    </td>
+                    <td>
+                        {% if row.photo %}
+                        <a href="{{ url_for('static', filename='uploads/attendance/' ~ row.photo) }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
+                        {% else %}
+                        <span class="mini-muted">No photo</span>
+                        {% endif %}
+                    </td>
+                    <td><span class="badge-soft badge-present">{{ row.status }}</span></td>
+                </tr>
+                {% else %}
+                <tr><td colspan="7" class="empty-state">No attendance records found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

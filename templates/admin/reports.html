@@ -1,0 +1,101 @@
+{% extends "admin/layout.html" %}
+{% block title %}Reports | TRUNOW{% endblock %}
+{% block admin_content %}
+<div class="row g-4">
+    <div class="col-xl-4">
+        <div class="table-card h-100">
+            <h5 class="mb-3">Attendance Summary</h5>
+            <canvas id="attendanceChart" height="240"></canvas>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="table-card h-100">
+            <h5 class="mb-3">Task Completion Summary</h5>
+            <canvas id="taskChart" height="240"></canvas>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="table-card h-100">
+            <h5 class="mb-3">Stock Summary</h5>
+            <canvas id="stockChart" height="240"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-1">
+    <div class="col-lg-6">
+        <div class="table-card">
+            <h5 class="mb-3">Attendance Data</h5>
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr><th>Employee</th><th>Days Marked</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for row in attendance_summary %}
+                        <tr><td>{{ row.full_name }}</td><td>{{ row.days_marked }}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="table-card">
+            <h5 class="mb-3">Stock Data</h5>
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr><th>Category</th><th>Total Quantity</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for row in stock_summary %}
+                        <tr><td>{{ row.category }}</td><td>{{ row.total_quantity }}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+    new Chart(document.getElementById("attendanceChart"), {
+        type: "bar",
+        data: {
+            labels: {{ attendance_summary | map(attribute='full_name') | list | tojson }},
+            datasets: [{
+                label: "Days Marked",
+                data: {{ attendance_summary | map(attribute='days_marked') | list | tojson }},
+                backgroundColor: "#1f5eff"
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    new Chart(document.getElementById("taskChart"), {
+        type: "doughnut",
+        data: {
+            labels: {{ task_summary | map(attribute='status') | list | tojson }},
+            datasets: [{
+                data: {{ task_summary | map(attribute='total') | list | tojson }},
+                backgroundColor: ["#f4b740", "#1f5eff", "#1d9d74"]
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    new Chart(document.getElementById("stockChart"), {
+        type: "polarArea",
+        data: {
+            labels: {{ stock_summary | map(attribute='category') | list | tojson }},
+            datasets: [{
+                data: {{ stock_summary | map(attribute='total_quantity') | list | tojson }},
+                backgroundColor: ["#0d1b4c", "#1f5eff", "#87a7ff", "#c5d6ff", "#8bd6be"]
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+</script>
+{% endblock %}

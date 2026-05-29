@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+{% block title %}TRUNOW Technologies Pvt Ltd{% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+    <div class="container py-3">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='images/logo-tt.jpg') }}" alt="TRUNOW Technologies">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="siteNav">
+            <div class="ms-auto d-flex flex-column flex-lg-row gap-3">
+                <a class="btn btn-outline-primary nav-auth-btn" href="{{ url_for('admin_login') }}">
+                    <i class="bi bi-shield-check me-2"></i>Admin Login
+                </a>
+                <a class="btn btn-primary nav-auth-btn dark-btn" href="{{ url_for('employee_login') }}">
+                    <i class="bi bi-people me-2"></i>Employee Login
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="hero-section hero-match">
+    <div class="container">
+        <div class="hero-match-inner text-center">
+            <h1 class="display-2 fw-800 mb-4">Enterprise IT Infrastructure Solutions</h1>
+            <p class="hero-copy mx-auto mb-4">Leading provider of structured cabling, fiber optics, and network infrastructure solutions with 20+ years of combined expertise</p>
+            <a class="btn btn-light hero-cta" href="#about">Get Started</a>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="section-padding section-white">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <div class="about-copy-wrap pe-lg-4">
+                    <h2 class="section-title text-start">About Trunow Technologies</h2>
+                    <p class="about-copy mt-4">Established in 2016, Trunow Technologies Pvt Ltd is a leading provider of enterprise-grade IT infrastructure and cabling solutions. We specialize in data cabling, fiber optic installations, network infrastructure setup, and security systems.</p>
+                    <p class="about-copy mt-3">Our team brings over 20 years of combined experience in delivering end-to-end infrastructure solutions. From initial consultation to design, implementation, testing, and ongoing support, we ensure seamless project execution with fixed pricing and no hidden costs.</p>
+                    <div class="row g-3 mt-3">
+                        <div class="col-sm-6">
+                            <div class="stats-block">
+                                <div class="fs-3 fw-bold text-primary">2016</div>
+                                <p class="mb-0 text-secondary">Established</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="stats-block">
+                                <div class="fs-3 fw-bold text-primary">20+</div>
+                                <p class="mb-0 text-secondary">Years Experience</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-visual-card">
+                    <div class="cable-photo"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding section-soft">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Core Services</h2>
+            <p class="section-subtitle mx-auto">Comprehensive IT infrastructure solutions for modern enterprises</p>
+        </div>
+        <div class="row g-4">
+            {% for icon, title, desc in [
+                ('bi-plug', 'Data & Fiber Optic Cabling', 'Expert installation of structured cabling systems, fiber optic networks with LC, SC, ST, FC, MPO connectors, and complete data infrastructure'),
+                ('bi-camera', 'Security & Access Control', 'Professional CCTV camera installation, access control systems, and comprehensive security infrastructure for businesses'),
+                ('bi-diagram-3', 'Network Infrastructure', 'Complete network setup, voice cabling, patching services, cable testing & certification for enterprise environments')
+            ] %}
+            <div class="col-md-4">
+                <div class="match-card match-card-service">
+                    <i class="bi {{ icon }} section-icon text-primary"></i>
+                    <h4 class="mt-3">{{ title }}</h4>
+                    <p class="mb-0 section-copy">{{ desc }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-padding section-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Work Process</h2>
+            <p class="section-subtitle mx-auto">End-to-end solutions from start to finish</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            {% for step, icon, title, desc in [
+                ('01', 'bi-person', 'Consultation', 'Understand business needs'),
+                ('02', 'bi-diagram-3', 'Design', 'Plan infrastructure'),
+                ('03', 'bi-plug', 'Implementation', 'Execute installation'),
+                ('04', 'bi-check-circle', 'Testing', 'Ensure performance'),
+                ('05', 'bi-wifi', 'Support', 'After-installation service')
+            ] %}
+            <div class="col-6 col-md-4 col-lg process-col text-center">
+                <div class="process-match">
+                    <div class="process-icon-circle">
+                        <i class="bi {{ icon }}"></i>
+                    </div>
+                    <div class="process-number">{{ step }}</div>
+                    <h5>{{ title }}</h5>
+                    <p class="mb-0 section-copy">{{ desc }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-padding section-soft">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Industries We Serve</h2>
+            <p class="section-subtitle mx-auto">Trusted by leading organizations across sectors</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            {% for industry in ['Banking (BFSI)', 'Logistics', 'IT & ITES', 'Education', 'Manufacturing'] %}
+            <div class="col-md-6 col-lg">
+                <div class="industry-box text-center">
+                    <h5 class="mb-0">{{ industry }}</h5>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-padding section-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Why Choose Us</h2>
+            <p class="section-subtitle mx-auto">Our commitment to excellence</p>
+        </div>
+        <div class="row g-4">
+            {% for item in [
+                'Enterprise-Grade Solutions',
+                '20+ Years Experience',
+                'Fixed Pricing',
+                'Dedicated Project Managers',
+                'Post-Installation Support',
+                'Turnkey Solutions'
+            ] %}
+            <div class="col-md-6 col-lg-4">
+                <div class="match-card choice-card">
+                    <i class="bi bi-check2-circle section-icon text-primary"></i>
+                    <h5 class="mt-3">{{ item }}</h5>
+                    <p class="mb-0 section-copy">
+                        {% if item == 'Enterprise-Grade Solutions' %}Professional infrastructure for large organizations{% elif item == '20+ Years Experience' %}Combined expertise across all team members{% elif item == 'Fixed Pricing' %}Transparent costs with no hidden charges{% elif item == 'Dedicated Project Managers' %}Single point of contact for your project{% elif item == 'Post-Installation Support' %}Ongoing maintenance and assistance{% else %}Complete setup from start to finish{% endif %}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-padding section-soft">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Internal Management System</h2>
+            <p class="section-subtitle mx-auto">Streamlined operations for our team</p>
+        </div>
+        <div class="row g-4">
+            {% for icon, title, desc in [
+                ('bi-box-seam', 'Stock Management', 'Real-time inventory tracking, stock updates, and automated alerts for equipment and materials'),
+                ('bi-clock', 'Attendance Tracking', 'Automated employee attendance system with clock-in/out functionality and detailed reports'),
+                ('bi-graph-up-arrow', 'Analytics Dashboard', 'Comprehensive insights with visual analytics, reports, and performance metrics')
+            ] %}
+            <div class="col-md-4">
+                <div class="match-card match-card-service">
+                    <i class="bi {{ icon }} section-icon text-primary"></i>
+                    <h4 class="mt-3">{{ title }}</h4>
+                    <p class="mb-0 section-copy">{{ desc }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact-band">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <h2 class="contact-title">Contact Us</h2>
+                <div class="contact-list mt-4">
+                    <div class="contact-item">
+                        <i class="bi bi-geo-alt"></i>
+                        <div>
+                            <h5>Head Office</h5>
+                            <p>Door No.11, Arumuga Nainar Street,<br>Thiru Nagar, Valasaravakkam,<br>Chennai - 600087, Tamil Nadu, India</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="bi bi-telephone"></i>
+                        <div>
+                            <h5>Phone</h5>
+                            <p>+91 9600 555 705<br>+91 44 48646460</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="bi bi-envelope"></i>
+                        <div>
+                            <h5>Email</h5>
+                            <p>rajesh@trunowindia.com<br>rajeshkumar@trunowindia.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-divider"></div>
+                <div class="key-contacts">
+                    <h5>Key Contacts</h5>
+                    <p>R. Rajesh - Senior Manager</p>
+                    <p>S. Rajesh Kumar - Sales & Operations</p>
+                    <p class="mb-0">R. Kumaresan - Head Project</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="contact-title">Employee &amp; Admin Access</h2>
+                <div class="access-buttons">
+                    <a class="access-btn" href="{{ url_for('admin_login') }}">Admin Portal Access</a>
+                    <a class="access-btn" href="{{ url_for('employee_login') }}">Employee Portal Access</a>
+                </div>
+                <div class="company-info-panel">
+                    <h4>Company Information</h4>
+                    <p><strong>CIN:</strong> U74999TN2016PTC112667</p>
+                    <p><strong>Status:</strong> Active Company</p>
+                    <p class="mb-0"><strong>Registered:</strong> Chennai (RoC Chennai)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer-dark footer-match py-4">
+    <div class="container text-center">
+        © 2026 Trunow Technologies Pvt Ltd. All rights reserved. | Established 2016
+    </div>
+</footer>
+{% endblock %}

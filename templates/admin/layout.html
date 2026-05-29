@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="portal-shell d-lg-flex">
+    <aside class="sidebar p-3">
+        <div class="brand">
+            <div class="d-flex align-items-center gap-3 mb-2">
+                <img src="{{ url_for('static', filename='images/logo-tt.jpg') }}" alt="TRUNOW" class="portal-logo">
+            </div>
+        </div>
+        <nav class="nav flex-column px-2">
+            <a class="nav-link {% if request.endpoint == 'admin_dashboard' %}active{% endif %}" href="{{ url_for('admin_dashboard') }}"><i class="bi bi-grid me-2"></i>Dashboard</a>
+            <a class="nav-link {% if 'employee' in request.endpoint and request.endpoint != 'employee_dashboard' and request.endpoint != 'employee_login' %}active{% endif %}" href="{{ url_for('admin_employees') }}"><i class="bi bi-people me-2"></i>Employees</a>
+            <a class="nav-link {% if request.endpoint == 'admin_attendance' %}active{% endif %}" href="{{ url_for('admin_attendance') }}"><i class="bi bi-fingerprint me-2"></i>Attendance</a>
+            <a class="nav-link {% if 'task' in request.endpoint and 'employee' not in request.endpoint %}active{% endif %}" href="{{ url_for('admin_tasks') }}"><i class="bi bi-list-check me-2"></i>Tasks</a>
+            <a class="nav-link {% if 'stock' in request.endpoint %}active{% endif %}" href="{{ url_for('admin_stock') }}"><i class="bi bi-box-seam me-2"></i>Stock</a>
+            <a class="nav-link {% if request.endpoint == 'admin_reports' %}active{% endif %}" href="{{ url_for('admin_reports') }}"><i class="bi bi-bar-chart me-2"></i>Reports</a>
+            <a class="nav-link" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-left me-2"></i>Logout</a>
+        </nav>
+    </aside>
+    <main class="portal-content">
+        <div class="soft-card topbar mb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div>
+                    <div class="text-secondary small">Welcome back</div>
+                    <h4 class="mb-0">TRUNOW Administration</h4>
+                </div>
+                <div class="text-secondary small">Enterprise operations portal</div>
+            </div>
+        </div>
+        {% block admin_content %}{% endblock %}
+    </main>
+</div>
+{% endblock %}

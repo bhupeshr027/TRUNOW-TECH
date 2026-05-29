@@ -1,0 +1,41 @@
+{% extends "employee/layout.html" %}
+{% block title %}My Tasks | TRUNOW{% endblock %}
+{% block employee_content %}
+<div class="row g-4">
+    {% for task in tasks %}
+    <div class="col-lg-6">
+        <div class="soft-card h-100">
+            <div class="d-flex justify-content-between align-items-start gap-3">
+                <div>
+                    <h5 class="mb-1">{{ task.title }}</h5>
+                    <div class="mini-muted">Due {{ task.due_date }} | Priority {{ task.priority }}</div>
+                </div>
+                <span class="badge-soft {% if task.status == 'Pending' %}badge-pending{% elif task.status == 'In Progress' %}badge-progress{% else %}badge-completed{% endif %}">
+                    {{ task.status }}
+                </span>
+            </div>
+            <p class="text-secondary mt-3">{{ task.description }}</p>
+            <form method="post" action="{{ url_for('update_employee_task', id=task.id) }}">
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" name="status">
+                        {% for option in ['Pending', 'In Progress', 'Completed'] %}
+                        <option value="{{ option }}" {% if task.status == option %}selected{% endif %}>{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Remarks</label>
+                    <textarea class="form-control" rows="3" name="remarks" placeholder="Add update notes">{{ task.remarks or '' }}</textarea>
+                </div>
+                <button class="btn btn-primary">Update Task</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <div class="soft-card empty-state">No tasks assigned yet.</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "admin/layout.html" %}
+{% block title %}Admin Dashboard | TRUNOW{% endblock %}
+{% block admin_content %}
+<div class="row g-4 mb-4">
+    {% for title, value, icon in [
+        ('Total Employees', total_employees, 'bi-people'),
+        ('Present Today', present_today, 'bi-fingerprint'),
+        ('Pending Tasks', pending_tasks, 'bi-list-task'),
+        ('Stock Items', stock_items, 'bi-box-seam')
+    ] %}
+    <div class="col-md-6 col-xl-3">
+        <div class="dashboard-card">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="text-secondary small">{{ title }}</div>
+                    <h2 class="fw-bold mt-2 mb-0">{{ value }}</h2>
+                </div>
+                <div class="icon-wrap"><i class="bi {{ icon }}"></i></div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="row g-4">
+    <div class="col-xl-7">
+        <div class="table-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">Recent Activity</h5>
+                <span class="mini-muted">{{ today }}</span>
+            </div>
+            {% if recent_activity %}
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>User Type</th>
+                            <th>Action</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in recent_activity %}
+                        <tr>
+                            <td class="text-capitalize">{{ item.user_type }}</td>
+                            <td>{{ item.action }}</td>
+                            <td>{{ item.created_at }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">No activity yet.</div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-xl-5">
+        <div class="table-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">Low Stock Alert</h5>
+                <a href="{{ url_for('admin_stock') }}" class="small text-primary">Manage stock</a>
+            </div>
+            {% if low_stock %}
+                {% for item in low_stock %}
+                <div class="soft-card mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="fw-semibold">{{ item.item_name }}</div>
+                            <div class="mini-muted">{{ item.category }}</div>
+                        </div>
+                        <span class="badge-soft badge-low">{{ item.quantity }} {{ item.unit }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="empty-state">No low-stock items right now.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

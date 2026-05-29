@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Admin Login | TRUNOW{% endblock %}
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card overflow-hidden">
+        <div class="row g-0">
+            <div class="col-lg-6 hero-section d-flex align-items-center">
+                <div class="p-5">
+                    <span class="stat-chip mb-3">Admin Portal</span>
+                    <h2 class="fw-bold mb-3">Control operations with one enterprise dashboard</h2>
+                    <p class="mb-0">Manage employees, attendance, tasks, stock, and analytics from a secure central workspace.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="p-4 p-lg-5">
+                    <a href="{{ url_for('index') }}" class="text-primary small fw-semibold">← Back to website</a>
+                    <h3 class="fw-bold mt-4">Admin Login</h3>
+                    <p class="mini-muted">Use your administrator username and password.</p>
+                    <form method="post" class="mt-4">
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <button class="btn btn-primary w-100">Login to Admin Dashboard</button>
+                    </form>
+                    <div class="mini-muted mt-4">Default admin: <strong>admin</strong> / <strong>admin123</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

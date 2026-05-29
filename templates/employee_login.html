@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Employee Login | TRUNOW{% endblock %}
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card overflow-hidden">
+        <div class="row g-0">
+            <div class="col-lg-6 hero-section d-flex align-items-center">
+                <div class="p-5">
+                    <span class="stat-chip mb-3">Employee Portal</span>
+                    <h2 class="fw-bold mb-3">Stay connected with field and office operations</h2>
+                    <p class="mb-0">Access attendance, tasks, profile information, and alerts from one responsive employee workspace.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="p-4 p-lg-5">
+                    <a href="{{ url_for('index') }}" class="text-primary small fw-semibold">← Back to website</a>
+                    <h3 class="fw-bold mt-4">Employee Login</h3>
+                    <p class="mini-muted">Login using your username or phone number and password.</p>
+                    <form method="post" class="mt-4">
+                        <div class="mb-3">
+                            <label class="form-label">Username or Phone</label>
+                            <input type="text" name="identifier" class="form-control" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <button class="btn btn-primary w-100">Login to Employee Dashboard</button>
+                    </form>
+                    <div class="mini-muted mt-4">Use your assigned employee username or phone number and password.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
