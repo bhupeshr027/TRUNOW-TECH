@@ -22,7 +22,7 @@ from werkzeug.utils import secure_filename
 
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-DATABASE = os.path.join(BASE_DIR, "trunow.db")
+DATABASE = os.getenv("DATABASE_PATH", os.path.join(BASE_DIR, "trunow.db"))
 UPLOAD_ROOT = os.path.join(BASE_DIR, "static", "uploads")
 PROFILE_UPLOAD = os.path.join(UPLOAD_ROOT, "profiles")
 ATTENDANCE_UPLOAD = os.path.join(UPLOAD_ROOT, "attendance")
@@ -30,7 +30,7 @@ ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "trunow-secret-key-change-me"
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "trunow-secret-key-change-me")
 app.config["MAX_CONTENT_LENGTH"] = 4 * 1024 * 1024
 
 EMPLOYEE_SEED_DATA = [

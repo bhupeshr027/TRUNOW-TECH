@@ -70,6 +70,12 @@ Open your browser at:
 
 `http://127.0.0.1:5000`
 
+## Railway Deployment
+
+- Start command: `gunicorn app:app --bind 0.0.0.0:${PORT:-8080}`
+- Set `SECRET_KEY` in Railway Variables
+- Optional: set `DATABASE_PATH` to a mounted volume path such as `/data/trunow.db` if you want SQLite data to persist across restarts
+
 ## Notes
 
 - Database file: `trunow.db`
